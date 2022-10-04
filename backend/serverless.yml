@@ -1,5 +1,5 @@
 # TODO: Change the name of the org 
-org: tOgunfile
+org: tosinogunfile
 app: serverless-todo-app
 service: serverless-todo-app
 
@@ -24,8 +24,9 @@ provider:
   # ${self:provider.environment.ATTACHMENT_S3_BUCKET}
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
-    TODOS_CREATED_AT_INDEX: CreatedAtIndex
-    ATTACHMENT_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
+    # TODOS_CREATED_AT_INDEX: CreatedAtIndex
+    TODOS_BY_USER_INDEX: CreatedAtIndex
+    ATTACHMENTS_S3_BUCKET: serverless-c4-todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
 
   logs:
@@ -37,6 +38,15 @@ provider:
       statements:
         - Effect: Allow
           Action:
+            - xray:GetSamplingRules
+            - xray:GetSamplingTargets
+            - xray:GetSamplingStatisticSummaries
+            - xray:BatchGetTraces
+            - xray:GetServiceGraph
+            - xray:GetTraceGraph
+            - xray:GetTraceSummaries
+            - xray:GetGroups
+            - xray:GetGroup
             - xray:PutTelemetryRecords
             - xray:PutTraceSegments
           Resource: "*"
