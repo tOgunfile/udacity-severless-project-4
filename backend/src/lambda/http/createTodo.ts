@@ -3,12 +3,11 @@ import {
   APIGatewayProxyHandler,
   APIGatewayProxyResult,
 } from "aws-lambda";
-import "source-map-support/register";
 import { CreateTodoRequest } from "../../requests/CreateTodoRequest";
 import { createLogger } from "../../utils/logger";
 import { getUserId } from "../utils";
 import { createTodo } from "../../businessLogic/todos";
-
+import "source-map-support/register";
 const logger = createLogger("createTodo");
 
 export const handler: APIGatewayProxyHandler = async (
