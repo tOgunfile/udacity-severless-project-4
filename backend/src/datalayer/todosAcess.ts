@@ -33,14 +33,17 @@ export class TodosAccess {
   // Create Todo
   async createTodo(todoItem: TodoItem): Promise<string> {
     logger.info(`Creating todo ${todoItem.todoId}`);
-
-    await this.docClient
-      .put({
-        TableName: this.todosTable,
-        Item: todoItem,
-      })
-      .promise();
-    return "success";
+    if (!todoItem.todoId) {
+      return "Input name of todo";
+    } else {
+      await this.docClient
+        .put({
+          TableName: this.todosTable,
+          Item: todoItem,
+        })
+        .promise();
+      return "success";
+    }
   }
   // Update Todo
   async updateTodo(todoId: string, todoUpdate: TodoUpdate): Promise<string> {
